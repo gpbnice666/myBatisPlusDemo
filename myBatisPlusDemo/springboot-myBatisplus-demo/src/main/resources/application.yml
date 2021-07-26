@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: plus-test
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql:///ok?characterEncoding=UTF-8
+      username: root
+      password: root
+      type: com.alibaba.druid.pool.DruidDataSource
+#myBatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**Mapper.xml
+  type-aliases-package: com.itheima.mapper
