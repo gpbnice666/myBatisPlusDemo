@@ -35,15 +35,16 @@ public class Generator {
             e.printStackTrace();
         }
         System.out.println("canonicalPath="+canonicalPath);
-        String filePath = canonicalPath+"\\myBatisPlus-generator\\src\\main\\";
-
+        // String filePath = canonicalPath+"\\myBatisPlus-generator\\src\\main\\";
+        // 自定义输出路径
+        String filePath = "E:\\generator\\src\\main\\";
         AutoGenerator mpg = new AutoGenerator();
         // 选择 freemarker 引擎，默认 Veloctiy
         //mpg.setTemplateEngine(new FreemarkerTemplateEngine());
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setAuthor("HM");
+        gc.setAuthor("gpb"); // 作者
         gc.setOutputDir(filePath+"java");//代码生成路径
         gc.setFileOverride(true);// 是否覆盖同名文件，默认是false
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
@@ -79,9 +80,12 @@ public class Generator {
             }
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
+//        dsc.setUsername("root");
+//        dsc.setPassword("root");
         dsc.setUsername("root");
-        dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql:///ok?useUnicode=true&characterEncoding=utf8");
+        dsc.setPassword("keesaildb");
+        // dsc.setUrl("jdbc:mysql:///ok?useUnicode=true&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://10.0.0.9:13306/klh_reborn?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&allowMultiQueries=true");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -91,7 +95,7 @@ public class Generator {
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
-        //strategy.setInclude(new String[] { "user" }); // 需要生成的表
+        strategy.setInclude(new String[] { "klh_sign_in_config","klh_activity_area_management","klh_new_product_calendar_management","klh_popular_hot_selling_management" }); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -115,11 +119,11 @@ public class Generator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.itheima");// 自定义包路径
+        pc.setParent("com.ysy.klh.central.service.activity");// 自定义包路径
         pc.setController("controller");// 这里是控制器包名，默认 web
         pc.setMapper("mapper");// 设置Mapper包名，默认mapper
         pc.setService("service");// 设置Service包名，默认service
-        pc.setEntity("pojo");// 设置Entity包名，默认entity,继承的父类  已序列化
+        pc.setEntity("entity");// 设置Entity包名，默认entity,继承的父类  已序列化
         //pc.setXml("mapper.xml");// 设置Mapper XML包名，默认mapper.xml
         mpg.setPackageInfo(pc);
 
